@@ -15,4 +15,7 @@ export class UrlShortenerService {
     return this.http.get(`${this.baseUrl}/some-test-alias`, { responseType: 'text' });
   }
 
+  getHealthOfAPI(): Observable<string> {
+    return this.http.get(`${this.baseUrl}/health`, { responseType: 'text' });
+  }
 }

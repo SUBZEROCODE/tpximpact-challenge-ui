@@ -9,15 +9,21 @@ import { JsonPipe } from '@angular/common';
   styleUrl: './url-shortener.scss'
 })
 export class UrlShortener {
-  testAliasResponse: String = "";
-  apiHealth: String = "";
+  testAliasResponse: string = "";
+  apiHealth: string = "";
 
   constructor(private urlShortener: UrlShortenerService) {}
 
   ngOnInit() {
 
-    this.urlShortener.getUrlRedirectForAlias().subscribe((result: String) => {
-      this.testAliasResponse = result;
+    this.urlShortener.getHealthOfAPI().subscribe((healthStatus: string) => {
+      console.log(healthStatus)
+      this.apiHealth = healthStatus;
+
+      this.urlShortener.getUrlRedirectForAlias().subscribe((result: string) => {
+          this.testAliasResponse = result;
+      });
+
     });
 
   }
