@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "my-app": {
+    "url-shortener-ui": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -61,10 +61,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "my-app:build:production"
+              "buildTarget": "url-shortener-ui:build:production"
             },
             "development": {
-              "buildTarget": "my-app:build:development"
+              "buildTarget": "url-shortener-ui:build:development"
             }
           },
           "defaultConfiguration": "development"
