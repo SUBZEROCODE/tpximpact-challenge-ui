@@ -9,3 +9,12 @@ Interestingly I read into why, this refactor is because the HttpClient module it
 => I haven't used this before but its cool how Angular knows that a redirect has come through and wants to handle it.
 It presented a fun challenge when I was just trying to print something to screen but kept getting HttpErrorResponse from the backend API!
 Initially I thought that I'd need to handle this myself with nginx or a load balancer to redirect to that route internally.
+
+- Interesting how `ng update @angular/cli@20 @angular/core@20` now upgrades angular, haven't used before.
+=> Moved package.json/package-lock.json to version of ^20.3.7
+
+- Karma-Jasmine plugin no longer explictly prints the DOM as a UI, they expect you to run 'ng serve' to view UI.
+=> Caught me offguard as I was expecting to see some output but alas this has been removed in later versions of Angular.
+You can use injection into a custom DOM container and then view that but it seems over the top, instead can just log the HTML itself and check elements.
+
+
