@@ -1,0 +1,11 @@
+# For the angular project we are using Angular 20, previously I was using Angular 10 for my projects - so a lot has changed naturally.
+
+- HttpClient import for interacting with the API via requests.
+=> Now this is added via providers with provideHttpClient(withInterceptorsFromDi())
+Interestingly I read into why, this refactor is because the HttpClient module itself only actually had that one provider in previously.
+=> HttpClientTestingModule is now a provider of provideHttpClientTesting also.
+
+-302 redirect and how Angular 20 handles it.
+=> I haven't used this before but its cool how Angular knows that a redirect has come through and wants to handle it.
+It presented a fun challenge when I was just trying to print something to screen but kept getting HttpErrorResponse from the backend API!
+Initially I thought that I'd need to handle this myself with nginx or a load balancer to redirect to that route internally.

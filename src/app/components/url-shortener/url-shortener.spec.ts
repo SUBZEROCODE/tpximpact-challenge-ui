@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UrlShortener } from './url-shortener';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('UrlShortener', () => {
   let component: UrlShortener;
@@ -8,7 +9,8 @@ describe('UrlShortener', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UrlShortener]
+      imports: [UrlShortener],
+      providers: [provideHttpClient()],
     })
     .compileComponents();
 
