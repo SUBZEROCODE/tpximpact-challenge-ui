@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { UrlShortener } from './url-shortener';
 import { provideHttpClient } from '@angular/common/http';
@@ -30,17 +30,20 @@ fdescribe('UrlShortener', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should set the component up with apiHealth value', () => {
+  it('should set the component up with apiHealth value', fakeAsync(() => {
     spyOn(mockUrlShortenerService, 'getHealthOfAPI').and.callThrough();
     const mockHealthResponse = 'Java Spring is ready to serve the API';
     component.ngOnInit();
+
+    tick(1000);
     expect(mockUrlShortenerService.getHealthOfAPI).toHaveBeenCalled();
+    fixture.detectChanges();
 
     const healthCheckText: HTMLElement = fixture.nativeElement.querySelector(".health-check-text");
     expect(healthCheckText.innerText).toEqual("Time to check if our integration is working: " + mockHealthResponse);
-  });
+  }));
 
-  it('should get the url-redirect for alias only when healthy', () => {
+  it('should get the url-redirect for alias only when healthy', fakeAsync(() => {
     spyOn(mockUrlShortenerService, 'getHealthOfAPI').and.callThrough();
     spyOn(mockUrlShortenerService, 'getUrlRedirectForAlias').and.callThrough();
     
@@ -50,9 +53,11 @@ fdescribe('UrlShortener', () => {
     component.ngOnInit();
 
     expect(mockUrlShortenerService.getHealthOfAPI).toHaveBeenCalled();
+    expect(mockUrlShortenerService.getUrlRedirectForAlias).toHaveBeenCalledTimes(0);
+    tick(1000);
     expect(mockUrlShortenerService.getUrlRedirectForAlias).toHaveBeenCalled();
 
     expect(component.apiHealth).toBe(mockHealthResponse);
     expect(component.testAliasResponse).toBe(mockUrlRedirectResponse);
-  });
+  }));
 });
