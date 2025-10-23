@@ -26,3 +26,7 @@ Acceptance criteria: Angular serves html content to the localhost domain and bas
 ### FT-201-angular-services-and-api-integration
 As a developer of the url-shortener site I want to be able to see the outputs coming from the backend UI.
 Acceptance criteria: Designed and implemented an angular service to prove that backend interactions are being sent back to UI as expected (output changes may be required in backend).
+
+### FT-001-document-build-instructions
+As a developer I want to be able to build and run the code (frontend and backend java spring api) locally.
+Acceptance criteria: readme files are created detailing approach for building and running the code.
