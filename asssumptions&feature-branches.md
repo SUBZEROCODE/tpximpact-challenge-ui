@@ -26,7 +26,7 @@ Acceptance criteria: Angular serves html content to the localhost domain and bas
 
 ### FT-201-angular-services-and-api-integration
 As a developer of the url-shortener site I want to be able to see the outputs coming from the backend UI.
-Acceptance criteria: Designed and implemented a service to prove that backend interactions are being sent back to UI as expected.
+Acceptance criteria: Designed and implemented an angular service to prove that backend interactions are being sent back to UI as expected (output changes may be required in backend).
 
 ### BUG-100-spring-ldap-security-breaking-tests
 As a tester I want to be able to run my controller tests (`@webmvctest`) without needing to deal with issues related to CORS.
@@ -37,6 +37,6 @@ Acceptance criteria: Tests pass without the need to exclude SecurityAutoConfigur
 As a developer I want to be able to build and run the code (frontend and backend java spring api) locally.
 Acceptance criteria: readme files are created detailing approach for building and running the code.
 
-### BUG-200-github-workflow-missing-eslint
+### BUG-200-github-workflow-missing-eslint - merged 🚀
 As a developer I want to be able to lint my code when a release is made.
 Acceptance criteria: Github action passes the lint stage as its installed and ready added to the frontend.

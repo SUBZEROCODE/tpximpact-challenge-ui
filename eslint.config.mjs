@@ -22,6 +22,9 @@ export default [
         describe: true,
         beforeEach: true,
         HTMLElement: true,
+        spyOn: true,
+        afterEach: true,
+        fdescribe: true,
       }
     },
     plugins: {
@@ -40,7 +43,7 @@ export default [
         'error',
         { type: 'element', prefix: 'app', style: 'kebab-case' }
       ],
-      
+
     }
   },
 
