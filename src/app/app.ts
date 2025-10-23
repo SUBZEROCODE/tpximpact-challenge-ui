@@ -1,11 +1,11 @@
 /* eslint-disable @angular-eslint/component-class-suffix */
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { UrlShortener } from "./components/url-shortener/url-shortener";
+import { UrlShortenerComponent } from "./components/url-shortener/url-shortener";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, UrlShortener],
+  imports: [RouterOutlet, UrlShortenerComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

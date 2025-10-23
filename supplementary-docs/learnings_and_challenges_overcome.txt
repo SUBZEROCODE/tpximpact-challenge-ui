@@ -17,4 +17,13 @@ Initially I thought that I'd need to handle this myself with nginx or a load bal
 => Caught me offguard as I was expecting to see some output but alas this has been removed in later versions of Angular.
 You can use injection into a custom DOM container and then view that but it seems over the top, instead can just log the HTML itself and check elements.
 
+- Eslint configuration was tricky and required a lot of tries and imports of dependancies.
+=> Previously eslint was bundled differently and this added some challenge to resolve.
+
+- Github actions was failing due to eslint not being added.
+=> Added in eslint and then fixed lints and then finally the build passed.
+
+- Angular now supports automatic refactoring of its legacy components in places, quite cool but its changed from parameter injection.
+=> Now using `ng generate @angular/core:inject` you can bring it up to date with using inject() function instead.
+e.g. Instead of `constructor(private http: HttpClient) {}` its now just `inject(HttpClient)`
 

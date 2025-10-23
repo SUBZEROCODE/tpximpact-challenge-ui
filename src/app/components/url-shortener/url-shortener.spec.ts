@@ -1,27 +1,26 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
-import { UrlShortener } from './url-shortener';
+import { UrlShortenerComponent } from './url-shortener';
 import { provideHttpClient } from '@angular/common/http';
 import { UrlShortenerService } from '../../services/url-shortener-service';
-import { of } from 'rxjs';
 import { MockUrlShortenerService } from '../../testing/mocks/mock-url-shortener-service';
 
-fdescribe('UrlShortener', () => {
-  let component: UrlShortener;
-  let fixture: ComponentFixture<UrlShortener>;
+describe('UrlShortenerComponent', () => {
+  let component: UrlShortenerComponent;
+  let fixture: ComponentFixture<UrlShortenerComponent>;
   let mockUrlShortenerService: MockUrlShortenerService;
 
   beforeEach(async () => {
     mockUrlShortenerService = new MockUrlShortenerService();
     await TestBed.configureTestingModule({
-      imports: [UrlShortener],
+      imports: [UrlShortenerComponent],
       providers: [
         provideHttpClient(),
         { provide: UrlShortenerService, useValue: mockUrlShortenerService}
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(UrlShortener);
+    fixture = TestBed.createComponent(UrlShortenerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

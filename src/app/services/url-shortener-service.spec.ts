@@ -32,7 +32,7 @@ describe('UrlShortenerService', () => {
     const mockResponse = 'Java Spring is ready to serve the API';
     spyOn(testService, 'getHealthOfAPI').and.returnValue(of(mockResponse))
     
-    testService.getHealthOfAPI().subscribe(response => {
+    testService.getHealthOfAPI().subscribe((response: string) => {
       expect(response).toBe(mockResponse);
     });
     expect(testService.getHealthOfAPI).toHaveBeenCalled();
