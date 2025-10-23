@@ -2,7 +2,8 @@
 I'm going to treat the feature expectations and requirements as their own iterations by feature branch with the following identifiers for ease of use and clarification.
 Usually I'd expect my feature requirements and expectations for a given sprint to come from a project management tool such as JIRA, and this document is intended to mimic this issue ticket style.
 
-## Feature branches:
+## Issue Tracker of Feature branches:
+The numbering is slightly arbitrary it just depends on what issues had come before, I've selected 001 onwards for documentation and additional (docker requirements),100 for frontend and 200 for backend.
 
 ### FT-100-java-spring-initial-setup - merged 🚀
 As a java developer I want to have a basic program written in Java Spring and tested with JUnit for MVC usage, compiled and ready for coming iterations.
@@ -35,3 +36,7 @@ Acceptance criteria: Tests pass without the need to exclude SecurityAutoConfigur
 ### FT-001-document-build-instructions - merged 🚀
 As a developer I want to be able to build and run the code (frontend and backend java spring api) locally.
 Acceptance criteria: readme files are created detailing approach for building and running the code.
+
+### BUG-200-github-workflow-missing-eslint - merged 🚀
+As a developer I want to be able to lint my code when a release is made.
+Acceptance criteria: Github action passes the lint stage as its installed and ready added to the frontend.

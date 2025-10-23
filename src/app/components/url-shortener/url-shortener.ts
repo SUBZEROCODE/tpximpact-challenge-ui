@@ -1,14 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UrlShortenerService } from '../../services/url-shortener-service';
 import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-url-shortener',
-  imports: [JsonPipe],
   templateUrl: './url-shortener.html',
   styleUrl: './url-shortener.scss'
 })
-export class UrlShortener {
+export class UrlShortener implements OnInit {
   testAliasResponse: string = "";
   apiHealth: string = "";
 
