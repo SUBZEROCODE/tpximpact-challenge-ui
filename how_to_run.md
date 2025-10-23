@@ -10,6 +10,10 @@ Note: Unlike java the angular frontend interactions are usually done via cmd alt
 1) To get packages for the frontend, firstly run `npm install`
 If you need to reinstalll all dependancies you can use `npm ci` which is usually used by CI/CD when you need a clean slate build.
 
+## Linting the code
+To run the linter execute `npm lint`
+Note: You can also run `npm lint --fix` which will solve some simple problems. 
+
 ## Running the code
 2) To run execute `npm start` or `ng serve`
 Note: This can be fine tuned depending on which environment variables you need within package.json
