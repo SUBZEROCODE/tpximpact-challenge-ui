@@ -14,7 +14,15 @@ export default [
     languageOptions: {
       parser: tsParser, // ✅ pass the parser object directly
       ecmaVersion: 2022,
-      sourceType: 'module'
+      sourceType: 'module',
+      globals: {
+        console: true, // ✅ explicitly allow console
+        expect: true,
+        it: true,
+        describe: true,
+        beforeEach: true,
+        HTMLElement: true,
+      }
     },
     plugins: {
       '@typescript-eslint': tsPlugin,
@@ -31,7 +39,8 @@ export default [
       '@angular-eslint/component-selector': [
         'error',
         { type: 'element', prefix: 'app', style: 'kebab-case' }
-      ]
+      ],
+      
     }
   },
 
