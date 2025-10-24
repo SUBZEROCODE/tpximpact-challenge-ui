@@ -41,10 +41,33 @@ Acceptance criteria: readme files are created detailing approach for building an
 As a developer I want to be able to lint my code when a release is made.
 Acceptance criteria: Github action passes the lint stage as its installed and ready added to the frontend.
 
-### Release-basic-angular-and-api-integration
+### Release-basic-angular-and-api-integration - released as 0.0.1 🚀
 Note: I also developed a simple Github Actions pipeline when looking into why eslint was not working.
 
 As a developer I want to have a branch which will contain release staged code.
 Acceptance criteria: Github action of CI/CD passing for this Release branch when merged into dev.
 This release should be a basic implementation of frontend and backend and is to prove that the Release functionality is working as intended 
 e.g. lint, build, test and then build of artifacts end to end.
+Note: This will be release 0.0.1
+
+### FT-103-checkstyle-fix-lints-checkstyle-9.3-ruleset
+As a developer I want to have a clean run of CI/CD for lints.
+Currently using `mvn checkstyle:check`, which does not break build if Checkstyle is not satisfied, this will need updating eventually.
+Acceptance criteria: Checkstyle passes with very minimal errors for Checkstyle 9.3
+Priority: lower priority over the functionality of the task.
+
+### Release-persisted-url-shortener-records
+As a developer I want to have a persisted store to save records into, this will also encompass changes required to bring in:
+Repositories, Services and DataSource to set up the db and provide required methods to interact using SQL.
+Acceptance criteria: Release provides functionality to persist data across restarts, this is visualised on the UI as a list of those persisted data and updates on changes.
+Note: This will be release 0.0.2
+
+### FT-102-alias-with-url-mapping-repository - merged 🚀
+As a java developer I want to have a JPA respository to save my objects into, ready for integration into a persistant store.
+Acceptance criteria: working repository with basic tests with JPA with basic accessor methods added.
+
+### FT-202-frontend-ui-visualisations-for-api
+As an angular developer I want to provide a simple UI for visualising outputs from backend endpoints within the openapi spec.
+Acceptance criteria: Services set up for endpoints which have been implemented with simple UI view to complement the returns of data.
+
+
