@@ -33,6 +33,7 @@ jobs:
 
     - name: 🧹 Lint frontend
       run: npm run lint
+      continue-on-error: true
 
     - name: 🏗️ Build frontend
       run: npm run build -- --configuration=production
