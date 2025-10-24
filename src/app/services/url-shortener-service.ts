@@ -12,6 +12,7 @@ export class UrlShortenerService {
 
   // Get url redirect For a given alias.
   getUrlRedirectForAlias(customAlias: string): void {
+    // eslint-disable-next-line no-undef
     window.location.href= `http://localhost:8080/api/v1/url-shortener/${customAlias}`;
   }
 
