@@ -1,3 +1,18 @@
 <h1>url-shortener works!</h1>
 
 <p class="health-check-text"> Time to check if our integration is working: {{ apiHealth }}</p>
+
+
+<button (click)="this.redirectToAlias('my-custom-alias')">Go to Custom Alias</button>
+
+
+<ul>
+    <li *ngFor="let item of this.aliasMatchedUrlsReturned">
+        <a [href]="item.fullUrl" target="_blank" rel="noopener noreferrer">
+            {{ item.shortUrl}}
+        </a>
+    </li>
+</ul>
+
+ERROR MESSAGE GOES HERE
+{{errorMessage}}
