@@ -1,15 +1,16 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { UrlShortenerService } from '../../services/url-shortener-service';
 import { UrlMapping } from '../../models/url-mapping.model';
-import { catchError, throwError } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ShortenedListViewerComponent } from "./shortened-list-viewer/shortened-list-viewer";
 
 @Component({
   selector: 'app-url-shortener',
   templateUrl: './url-shortener.html',
   styleUrl: './url-shortener.scss',
-  imports: [CommonModule, RouterModule]
+  imports: [CommonModule, RouterModule, ShortenedListViewerComponent]
 })
 export class UrlShortenerComponent implements OnInit {
   private urlShortener = inject(UrlShortenerService);
@@ -18,15 +19,10 @@ export class UrlShortenerComponent implements OnInit {
   apiHealth: string = "";
   errorMessage: string = "";
 
-  aliasMatchedUrlsReturned: UrlMapping[] = [];
-
   ngOnInit() {
     this.urlShortener.getHealthOfAPI().subscribe((healthStatus: string) => {
       this.apiHealth = healthStatus;
 
-      this.urlShortener.getAllAliasedShortenedUrls().subscribe((aliasedShortenedUrls: UrlMapping[]) => {
-        this.aliasMatchedUrlsReturned = aliasedShortenedUrls;
-      });
 
         // this.urlShortener.getUrlRedirectForAlias("my-custom-alias").subscribe((fullUrlToRedirectTo: string) => {
         //       // eslint-disable-next-line no-undef
@@ -66,4 +62,8 @@ export class UrlShortenerComponent implements OnInit {
   redirectToAlias(alias: string) {
     this.urlShortener.getUrlRedirectForAlias(alias);
   }
+
+  getAllAliasUrlMappings(): Observable<UrlMapping[]> {
+    return this.urlShortener.getAllAliasedShortenedUrls();
+  }    
 }

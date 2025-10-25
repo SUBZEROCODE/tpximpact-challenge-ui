@@ -1,18 +1,26 @@
-<h1>url-shortener works!</h1>
+<div class="row">
+    <div class="col-md-10">
+        <h1>Url Shortener Challenge Task</h1>
+    </div>
+    <div class="col-md-2">
+        - Health status: {{ apiHealth }}
+    </div>
+</div>
 
-<p class="health-check-text"> Time to check if our integration is working: {{ apiHealth }}</p>
+<div class="row">
+    <div class="col-md-1">
+        <button (click)="this.redirectToAlias('my-custom-alias')">Go to Custom Alias</button>
+    </div>
+    <div class="col-md-11">
+        CUSTOM ALIAS COMPONENT GOES HERE
+    </div>
+</div>
 
-
-<button (click)="this.redirectToAlias('my-custom-alias')">Go to Custom Alias</button>
-
-
-<ul>
-    <li *ngFor="let item of this.aliasMatchedUrlsReturned">
-        <a [href]="item.fullUrl" target="_blank" rel="noopener noreferrer">
-            {{ item.shortUrl}}
-        </a>
-    </li>
-</ul>
+<div class="row">
+    <div class="col-md-10">
+        <app-shortened-list-viewer [urlMappingsReturnedFromApi]="this.getAllAliasUrlMappings()"></app-shortened-list-viewer>
+    </div>
+</div>
 
 ERROR MESSAGE GOES HERE
 {{errorMessage}}
