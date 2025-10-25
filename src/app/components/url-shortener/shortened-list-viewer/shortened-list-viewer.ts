@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { UrlMapping } from '../../../models/url-mapping.model';
 import { Observable, of } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './shortened-list-viewer.html',
   styleUrl: './shortened-list-viewer.scss',
 })
-export class ShortenedListViewerComponent {
+export class ShortenedListViewerComponent implements OnInit {
   @Input() urlMappingsReturnedFromApi: Observable<UrlMapping[]> = of([]);
   urlMappingsFound: UrlMapping[] = [];
 

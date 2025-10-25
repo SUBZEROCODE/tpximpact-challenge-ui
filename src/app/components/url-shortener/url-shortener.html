@@ -1,18 +1,14 @@
+<app-error-message-viewer [errorHandlerInput]="errorToHandle"></app-error-message-viewer>
+
 <div class="row">
     <div class="col-md-10">
-        <h1>Url Shortener Challenge Task</h1>
+        <h1>Health check and Custom Alias Test</h1>
     </div>
     <div class="col-md-2">
         - Health status: {{ apiHealth }}
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-1">
-        <button (click)="this.redirectToAlias('my-custom-alias')">Go to Custom Alias</button>
-    </div>
-    <div class="col-md-11">
-        CUSTOM ALIAS COMPONENT GOES HERE
+        @if(apiHealth){
+            <button (click)="this.redirectToAlias('my-custom-alias')">Try Custom Alias Test here</button>
+        }
     </div>
 </div>
 
@@ -21,6 +17,3 @@
         <app-shortened-list-viewer [urlMappingsReturnedFromApi]="this.getAllAliasUrlMappings()"></app-shortened-list-viewer>
     </div>
 </div>
-
-ERROR MESSAGE GOES HERE
-{{errorMessage}}

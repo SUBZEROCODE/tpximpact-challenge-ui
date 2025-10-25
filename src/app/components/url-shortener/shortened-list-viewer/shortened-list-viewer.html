@@ -1,7 +1,8 @@
-<p>shortened-list-viewer works!</p>
-
-<ul *ngIf="urlMappingsFound">
-  <li *ngFor="let urlMapping of urlMappingsFound">
-    {{ urlMapping.alias }} → {{ urlMapping.fullUrl }}
-  </li>
-</ul>
+<h2>View all your shortened urls here</h2>
+@if (urlMappingsFound ) {
+  <ul>
+    <li *ngFor="let urlMapping of urlMappingsFound">
+      {{ urlMapping.alias }} → {{ urlMapping.fullUrl }}
+    </li>
+  </ul>
+}
