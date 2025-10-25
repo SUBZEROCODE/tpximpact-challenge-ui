@@ -1,9 +1,23 @@
 # Assumptions made for this coding challenge.
+
+- If a user tries to send an "alias" to the api on route "/api/v1/url-shortener/{alias}" which is not there I will do nothing but return back Alias not found.
+=> Its assumed a user will always add the alias before wanting to get that redirect.
+
+- Its assumed that every record of alias, full-url and short-url will be complete.
+=> Therefore if we get a record matching a given alias a full-url and short-url will be gettable for that record.
+
+- Its assumed that the shortUrl generated will always be "http://localhost:8080/{{alias}}, the fullUrl can be any url to redirect to.
+=> Therefore its always within the scope of the backend on port 8080.
+
+- Assuming that the fact "full-url" has https means that this can be any outside url including those implementing https.
+
+- Assuming delete will only ever return a 204 if successfull, and therefore only catching this with conditional if in Angular is suitable.
+
 I'm going to treat the feature expectations and requirements as their own iterations by feature branch with the following identifiers for ease of use and clarification.
 Usually I'd expect my feature requirements and expectations for a given sprint to come from a project management tool such as JIRA, and this document is intended to mimic this issue ticket style.
 
 ## Issue Tracker of Feature branches:
-The numbering is slightly arbitrary it just depends on what issues had come before, I've selected 001 onwards for documentation and additional (docker requirements),100 for frontend and 200 for backend.
+The numbering is slightly arbitrary it just depends on what issues had come before, I've selected 001 onwards for documentation and additional (docker requirements),100 for backend and 200 for frontend.
 
 ### FT-100-java-spring-initial-setup - merged 🚀
 As a java developer I want to have a basic program written in Java Spring and tested with JUnit for MVC usage, compiled and ready for coming iterations.
@@ -14,7 +28,7 @@ As a java developer I want to create boilerplated code to mimic the sorts of log
 This will enable future iterations to use this logic and provides a good template for another developer to work on.
 Acceptance criteria: Boilerplated code with logic for Controller methods matching their openapi specifications, parameter testing is required for basic openapi related specifications but not the inner service logic (e.g. The method returns 200 and "OK").
 
-### BUG-100-api-context-path-fix
+### BUG-100-api-context-path-fix 
 As a java tester I want to be able to avoid needing to provide the full URL path, this should be inherited by the test classes from application.properties/application-test.properties file.
 Acceptance criteria: The context should be passed correctly with "server.servlet.context-path" for controllers and their tests.
 e.g. `mockMvc.perform(get("/health")` should work and not require additional "/api/v1/url-shortener/" path to be added in to the mockmvc test.
@@ -28,7 +42,7 @@ Acceptance criteria: Angular serves html content to the localhost domain and bas
 As a developer of the url-shortener site I want to be able to see the outputs coming from the backend UI.
 Acceptance criteria: Designed and implemented an angular service to prove that backend interactions are being sent back to UI as expected (output changes may be required in backend).
 
-### BUG-100-spring-ldap-security-breaking-tests
+### BUG-101-spring-ldap-security-breaking-tests
 As a tester I want to be able to run my controller tests (`@webmvctest`) without needing to deal with issues related to CORS.
 Currently these controller tests are having to exclude "SecurityAutoConfiguration.class" from building its custom Beans which are conflicting with tests and expecting authorised logins etc.
 Acceptance criteria: Tests pass without the need to exclude SecurityAutoConfiguration.class, it may be the case this is already suitable so further investigation is required.
@@ -69,5 +83,3 @@ Acceptance criteria: working repository with basic tests with JPA with basic acc
 ### FT-202-frontend-ui-visualisations-for-api
 As an angular developer I want to provide a simple UI for visualising outputs from backend endpoints within the openapi spec.
 Acceptance criteria: Services set up for endpoints which have been implemented with simple UI view to complement the returns of data.
-
-
