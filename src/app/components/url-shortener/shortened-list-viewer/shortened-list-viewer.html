@@ -1,8 +1,29 @@
 <h2>View all your shortened urls here</h2>
 @if (urlMappingsFound ) {
-  <ul>
-    <li *ngFor="let urlMapping of urlMappingsFound">
-      {{ urlMapping.alias }} → {{ urlMapping.fullUrl }}
-    </li>
-  </ul>
+  <div class="table-responsive mt-4">
+    <table class="table table-bordered table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th scope="col">Alias</th>
+          <th scope="col">Full URL</th>
+          <th scope="col" class="text-center">Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let urlMapping of urlMappingsFound">
+          <td>{{ urlMapping.alias }}</td>
+          <td>
+            <a [href]="urlMapping.fullUrl" target="_blank" rel="noopener noreferrer">
+              {{ urlMapping.fullUrl }}
+            </a>
+          </td>
+          <td class="text-center">
+            <button class="btn btn-sm btn-danger" (click)="deleteShortenedUrl(urlMapping.alias)">
+              X
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 }

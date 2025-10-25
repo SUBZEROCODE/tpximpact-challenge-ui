@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UrlMapping } from '../models/url-mapping.model';
@@ -28,7 +28,7 @@ export class UrlShortenerService {
     return this.http.post(`${this.baseUrl}/shorten`, {fullUrl, customAlias}, { responseType: 'text' as const });
   }
 
-  deleteShortenedUrlMapping(customAlias: string): Observable<string> {
-    return this.http.delete(`${this.baseUrl}/${customAlias}`, { responseType: 'text' });
+  deleteShortenedUrlMapping(customAlias: string): Observable<HttpResponse<string>> {
+    return this.http.delete<string>(`${this.baseUrl}/${customAlias}`, {observe: 'response'});
   }
 }

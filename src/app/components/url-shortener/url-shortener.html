@@ -1,19 +1,43 @@
+
+<app-success-message-viewer [successMessage]="responseMessage"></app-success-message-viewer>
 <app-error-message-viewer [errorHandlerInput]="errorToHandle"></app-error-message-viewer>
+
+<div class="container">
+  <div class="row align-items-start g-4">
+    
+    <div class="col-12 col-md-3">
+      <h2>Health Check & Custom Alias Test</h2>
+    </div>
+
+    <div class="col-12 col-md-5">
+      <p>
+        This site allows users to shorten URLs. Once the API is connected, you can store a custom alias.
+        The Custom Alias Test demonstrates this functionality.
+      </p>
+    </div>
+
+    <div class="col-12 col-md-4">
+        @if (hasHealthMessageFromApi) {
+          <div>
+            <button class="btn btn-light mt-2" (click)="redirectToAlias('my-custom-alias')">
+              Try Custom Alias Test
+            </button>
+          </div>
+        }
+        @else {
+          <p>❌ Custom Alias Test cannot Run without API
+            Check the backend API is running
+          </p>
+        }
+    </div>
+  </div>
 
 <div class="row">
     <div class="col-md-10">
-        <h1>Health check and Custom Alias Test</h1>
-    </div>
-    <div class="col-md-2">
-        - Health status: {{ apiHealth }}
-        @if(apiHealth){
-            <button (click)="this.redirectToAlias('my-custom-alias')">Try Custom Alias Test here</button>
-        }
+        <app-shortened-list-viewer [urlMappingsReturnedFromApi]="this.getAllAliasUrlMappings()"
+        (deletedUrlMappingObservable)="handleSuccess($event)" (errorToHandle)="handleError($event)">
+        </app-shortened-list-viewer>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-10">
-        <app-shortened-list-viewer [urlMappingsReturnedFromApi]="this.getAllAliasUrlMappings()"></app-shortened-list-viewer>
-    </div>
 </div>
