@@ -30,6 +30,9 @@ jobs:
           fi
 
   branch-cicd-pipeline:
+    needs: extract-commit-message
+    if: needs.extract-commit-message.outputs.matched == 'true'
+
     runs-on: ubuntu-latest
 
     strategy:
