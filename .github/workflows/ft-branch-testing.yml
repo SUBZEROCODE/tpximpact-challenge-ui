@@ -57,6 +57,9 @@ jobs:
     - name: 🏗️ Build frontend
       run: npm run build -- --configuration=production
 
+    - name: Get sanitised branch name
+      run: echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+
   deploy-ui:
     needs: branch-cicd-pipeline
     uses: ./.github/workflows/deploy-ui-as-container.yml
