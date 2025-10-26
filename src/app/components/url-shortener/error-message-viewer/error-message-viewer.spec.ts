@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ErrorMessageViewerComponent } from './error-message-viewer';
+import { HttpErrorResponse } from '@angular/common/http';
 
 describe('ErrorMessageViewer', () => {
   let component: ErrorMessageViewerComponent;
@@ -19,5 +20,12 @@ describe('ErrorMessageViewer', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('when closeErrorMessage() is called, should set error message back to emptyString', () => {
+      component.errorMessage = "URL not found"
+      component.closeErrorMessage();
+      fixture.detectChanges();
+      expect(component.errorMessage).toEqual("")
   });
 });
