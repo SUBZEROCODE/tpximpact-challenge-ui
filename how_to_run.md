@@ -30,5 +30,5 @@ Output is created in /dist folder and is provided the code as a series of .js fi
    This will build the image locally using the layers specified in your dockerfile. (e.g. layers for file changes, layers for artifact placement in folder structure)
 
 ## Running the Dockerfile
-7) `docker run -p 80:80 --name=url-shortener-ui-v{{insert_version}} url-shortener:{{insert_version}}`
+7) `docker run -p 80:80 --name=url-shortener-ui-v{{insert_version}} url-shortener-ui:{{insert_version}}`
    This will run the container on port 80 (default http port) named url-shortener-ui
