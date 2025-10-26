@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-error-message-viewer',
@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core';
   templateUrl: './error-message-viewer.html',
   styleUrl: './error-message-viewer.scss',
 })
-export class ErrorMessageViewerComponent {
+export class ErrorMessageViewerComponent implements OnChanges {
   @Input() errorHandlerInput?: HttpErrorResponse;
   errorMessage = "";
 

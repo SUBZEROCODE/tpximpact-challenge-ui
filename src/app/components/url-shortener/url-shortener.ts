@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { UrlShortenerService } from '../../services/url-shortener-service';
 import { UrlMapping } from '../../models/url-mapping.model';
 import { catchError, Observable, Subscription, throwError } from 'rxjs';
