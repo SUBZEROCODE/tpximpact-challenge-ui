@@ -32,8 +32,10 @@ jobs:
   branch-cicd-pipeline:
     needs: extract-commit-message
     if: needs.extract-commit-message.outputs.matched == 'true'
-
     runs-on: ubuntu-latest
+
+    outputs:
+      branch_name: ${{ steps.set_branch.outputs.branch_name }}
 
     strategy:
       matrix:
@@ -63,11 +65,11 @@ jobs:
     - name: Get sanitised branch name
       id: set_branch
       run: |
-        BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+        branch_name="${GITHUB_REF#refs/heads/}"
 
   deploy-ui:
     needs: branch-cicd-pipeline
     uses: ./.github/workflows/deploy-ui-as-container.yml
     with:
       image_name: url-shortener-ui
-      image_tag: "${{ needs.branch-cicd-pipeline.outputs.BRANCH_NAME }}-testing"
+      image_tag: "${{ needs.branch-cicd-pipeline.outputs.branch_name }}-testing"
