@@ -7,7 +7,7 @@ on:
   push:
     branches:
       - 'FT-*'
-      
+
 permissions:
   contents: read
   packages: write
@@ -57,8 +57,11 @@ jobs:
     - name: 🏗️ Build frontend
       run: npm run build -- --configuration=production
 
+    - name: Get sanitised branch name
+      run: echo "BRANCH_NAME=$(echo ${{GITHUB_REF#refs/heads/}}')" >> $GITHUB_ENV
+
   deploy-ui:
     uses: ./.github/workflows/deploy-ui-as-container.yml
     with:
       image_name: url-shortener-ui
-      image_tag: "{{ env.SANITISED_BRANCH_NAME }}-testing"
+      image_tag: "{{ env.BRANCH_NAME }}-testing"
