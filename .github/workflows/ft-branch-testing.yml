@@ -62,7 +62,7 @@ jobs:
     - name: 🏗️ Build frontend
       run: npm run build -- --configuration=production
 
-    - name: Get sanitised branch name
+    - name: Set branch name output
       id: set_branch
       run: |
         echo "branch_name=${GITHUB_REF#refs/heads/}">> $GITHUB_OUTPUT
