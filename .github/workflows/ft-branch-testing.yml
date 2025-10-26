@@ -1,0 +1,55 @@
+# This workflow will build a package using Maven and then publish it to GitHub packages when a release is created
+# For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#apache-maven-with-a-settings-path
+
+name: Test Frontend Feature Branch of Url Shortener (if commit matches "run-ft-branch-cicd")
+
+on:
+  push:
+    branches:
+      - 'FT-*'
+
+jobs:
+  extract-commit-message:
+    runs-on: ubuntu-latest
+    outputs:
+      matched: ${{ steps.check.outputs.matched }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: check
+        run: |
+          msg=$(git log -1 --pretty=%B)
+          echo "Commit message: $msg"
+          if [[ "$msg" == *"run-ft-branch-cicd"* ]]; then
+            echo "matched=true" >> $GITHUB_OUTPUT
+          else
+            echo "matched=false" >> $GITHUB_OUTPUT
+          fi
+
+  branch-cicd-pipeline:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [22.21.0]
+
+    steps:
+    - name: ⬇️ Checkout code
+      uses: actions/checkout@v3
+
+    - name: 🟢 Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: 📦 Install frontend dependencies
+      run: npm ci
+
+    - name: 🧪 Run frontend tests
+      run: npm run test -- --watch=false --browsers=ChromeHeadless
+
+    - name: 🧹 Lint frontend
+      run: npm run lint
+
+    - name: 🏗️ Build frontend
+      run: npm run build -- --configuration=production
+
