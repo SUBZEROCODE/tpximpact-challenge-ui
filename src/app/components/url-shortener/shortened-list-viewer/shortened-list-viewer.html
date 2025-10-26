@@ -1,23 +1,22 @@
-<h2>View all your shortened urls here</h2>
-@if (urlMappingsFound ) {
+@if (urlMappingsReturnedFromApi && urlMappingsReturnedFromApi[0] ) {
   <div class="table-responsive mt-4">
     <table class="table table-bordered table-hover align-middle">
       <thead class="table-light">
         <tr>
-          <th scope="col">Alias</th>
-          <th scope="col">Full URL</th>
-          <th scope="col" class="text-center">Remove</th>
+          <th scope="col" class="col-md-5">Alias</th>
+          <th scope="col" class="col-md-6">Full URL</th>
+          <th scope="col" class="text-center col-md-1">Remove</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let urlMapping of urlMappingsFound">
-          <td>{{ urlMapping.alias }}</td>
-          <td>
+        <tr *ngFor="let urlMapping of urlMappingsReturnedFromApi">
+          <td class="col-md-4">{{ urlMapping.alias }}</td>
+          <td class="col-md-6">
             <a [href]="urlMapping.fullUrl" target="_blank" rel="noopener noreferrer">
               {{ urlMapping.fullUrl }}
             </a>
           </td>
-          <td class="text-center">
+          <td class="col-md-1 text-center">
             <button class="btn btn-sm btn-danger" (click)="deleteShortenedUrl(urlMapping.alias)">
               X
             </button>
@@ -26,4 +25,9 @@
       </tbody>
     </table>
   </div>
+  <hr class="my-4">
 }
+<app-url-mapping-component>
+  (successMessage)="handleSuccess($event)"
+  (errorToHandle)="errorToHandle.emit($event)">
+</app-url-mapping-component>
