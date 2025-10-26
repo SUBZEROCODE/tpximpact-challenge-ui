@@ -1,13 +1,14 @@
 import { Component, OnChanges, OnInit, SimpleChanges, inject } from '@angular/core';
 import { UrlShortenerService } from '../../services/url-shortener-service';
 import { UrlMapping } from '../../models/url-mapping.model';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, Observable, Subscription, throwError } from 'rxjs';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ShortenedListViewerComponent } from "./shortened-list-viewer/shortened-list-viewer";
 import { ErrorMessageViewerComponent } from "./error-message-viewer/error-message-viewer";
 import { HttpErrorResponse } from '@angular/common/http';
 import { SuccessMessageViewerComponent } from './success-message-viewer/success-message-viewer';
+import { UrlMappingEventsService } from '../../services/url-mapping-events-service';
 
 @Component({
   selector: 'app-url-shortener',
@@ -15,34 +16,30 @@ import { SuccessMessageViewerComponent } from './success-message-viewer/success-
   styleUrl: './url-shortener.scss',
   imports: [CommonModule, RouterModule, ShortenedListViewerComponent, SuccessMessageViewerComponent, ErrorMessageViewerComponent]
 })
-export class UrlShortenerComponent implements OnInit, OnChanges {
+export class UrlShortenerComponent implements OnInit {
   private urlShortener = inject(UrlShortenerService);
-
+  private events = inject(UrlMappingEventsService);
+  private subscriptions = new Subscription();
+  
   errorToHandle?: HttpErrorResponse;
 
   testAliasResponse: string = "";
   apiHealth: string = "";
   errorMessage: string = "";
   responseMessage: string = "";
+  urlMappingsToDisplay: UrlMapping[] = [];
 
-  ngOnChanges() {
-    this.errorMessage = "";
-    
-    this.checkApiHealth();
-  }
 
   ngOnInit(): void {
     this.checkApiHealth();
+    
+    this.subscriptions.add(
+      this.events.successMessage$.subscribe(message => this.handleSuccess(message))
+    );
 
-      // this.urlShortener.getUrlRedirectForAlias("my-custom-alias").subscribe((fullUrlToRedirectTo: string) => {
-      //       // eslint-disable-next-line no-undef
-      //       console.log("Redirecting to " + fullUrlToRedirectTo);
-      //       // window.location.href = fullUrlToRedirectTo;
-      //       // this.testAliasResponse = fullUrlToRedirectTo;
-      // });
-
-      //console.log(resultFromSavingMapping);
-  // });
+    this.subscriptions.add(
+      this.events.errorMessage$.subscribe(error => this.handleError(error))
+    );
   }
 
   checkApiHealth() {
@@ -54,14 +51,6 @@ export class UrlShortenerComponent implements OnInit, OnChanges {
         next: (healthStatus: string) => {
           this.apiHealth = healthStatus;
           this.handleSuccess("API is now connected");
-
-          const urlMappingTest: UrlMapping = {
-          alias: "my-custom-alias",
-          fullUrl: "https://example.com/very/long/url/",
-          shortUrl: "http://localhost:8080/my-custom-alias"
-        };
-
-        this.saveAliasesShortenedUrlMapping(urlMappingTest.fullUrl, urlMappingTest.alias);
         },
         error: (errorResponse: HttpErrorResponse) => {
           this.errorToHandle = errorResponse;
@@ -75,30 +64,8 @@ export class UrlShortenerComponent implements OnInit, OnChanges {
     return this.apiHealth === 'Java Spring is ready to serve the API';
   }
 
-  saveAliasesShortenedUrlMapping(fullUrl: string, alias: string): string {
-    let resultToReturn = "";
-
-    const shortenedUrlMappingObservable = this.subscribeToObservableAndUseErrorMessageHandling(
-      this.urlShortener.saveAliasedShortenedUrlMapping(fullUrl, alias)
-    );
-
-    shortenedUrlMappingObservable.subscribe({
-        next: result => {
-          resultToReturn = result;
-        },
-        error: (errorResponse: HttpErrorResponse) => {
-          this.errorToHandle = errorResponse;
-        }
-    });
-    return resultToReturn;
-  }
-
   redirectToAlias(alias: string) {
     this.urlShortener.getUrlRedirectForAlias(alias);
-  }
-
-  getAllAliasUrlMappings(): Observable<UrlMapping[]> {
-    return this.urlShortener.getAllAliasedShortenedUrls();
   }
 
   subscribeToObservableAndUseErrorMessageHandling<T>(methodToSubscribeTo: Observable<T>): Observable<T> {
@@ -110,8 +77,25 @@ export class UrlShortenerComponent implements OnInit, OnChanges {
     );
   }
 
+  retrieveUrlMappingsFromApiAndDisplay(): void {
+    const urlMappingsFoundFromApiObservable = this.subscribeToObservableAndUseErrorMessageHandling(
+      this.urlShortener.getAllAliasedShortenedUrls()
+    );
+
+    urlMappingsFoundFromApiObservable.subscribe({
+        next: (urlMappingsRetrievedFromApi: UrlMapping[]) => {
+          this.urlMappingsToDisplay = urlMappingsRetrievedFromApi;
+        },
+        error: (errorResponse: HttpErrorResponse) => {
+          this.errorToHandle = errorResponse;
+        }
+    });
+  }
+
   handleSuccess(response: string): void {
     this.responseMessage = response;
+    this.retrieveUrlMappingsFromApiAndDisplay();
+    
   }
 
   handleError(error: HttpErrorResponse): void {

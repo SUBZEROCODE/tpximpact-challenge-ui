@@ -31,30 +31,30 @@ describe('UrlShortenerComponent', () => {
 
  it('should set the component up with apiHealth value', fakeAsync(() => {
     spyOn(mockUrlShortenerService, 'getHealthOfAPI').and.callThrough();
-    const customAliasTestMessage = "Try Custom Alias Test";
+    const testUrl = "http://localhost:8080/v1/api/shorten/my-custom-alias";
+    const customAliasTestMessage = "🚀 Try Custom Alias Test for " + testUrl;
     component.ngOnInit();
 
     tick(1000);
     expect(mockUrlShortenerService.getHealthOfAPI).toHaveBeenCalled();
     fixture.detectChanges();
 
-    const healthCheckText: HTMLElement = fixture.nativeElement.querySelector("button.btn.btn-light");
+    const healthCheckText: HTMLElement = fixture.nativeElement.querySelector("button.btn-outline-success");
     expect(healthCheckText.innerText).toEqual(customAliasTestMessage);
   }));
 
-  it('should get the url-redirect for alias only when healthy', fakeAsync(() => {
+  it('should get urlMappingsToDisplay when handleSuccess is called', fakeAsync(() => {
     spyOn(mockUrlShortenerService, 'getHealthOfAPI').and.callThrough();
-    spyOn(mockUrlShortenerService, 'saveAliasedShortenedUrlMapping').and.callThrough();
+    spyOn(mockUrlShortenerService, 'getAllAliasedShortenedUrls').and.callThrough();
     
     const mockHealthResponse = 'Java Spring is ready to serve the API';
 
-    component.ngOnInit();
+    // Mocking that the api is ready to serve
+    component.handleSuccess(mockHealthResponse);
 
-    expect(mockUrlShortenerService.getHealthOfAPI).toHaveBeenCalled();
-    expect(mockUrlShortenerService.saveAliasedShortenedUrlMapping).toHaveBeenCalledTimes(0);
-    tick(1000);
-    expect(mockUrlShortenerService.saveAliasedShortenedUrlMapping).toHaveBeenCalled();
+    expect(mockUrlShortenerService.getAllAliasedShortenedUrls).toHaveBeenCalled();
 
-    expect(component.apiHealth).toBe(mockHealthResponse);
+    expect(component.responseMessage).toBe(mockHealthResponse);
+    
   }));
 });
