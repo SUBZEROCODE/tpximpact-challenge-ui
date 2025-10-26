@@ -26,9 +26,10 @@ Note: This can be fine tuned depending on which environment variables you need w
 Output is created in /dist folder and is provided the code as a series of .js files. (These can later be added to a Dockerfile and served over a load-balancer such as nginx)
 
 ## Building as a Dockerfile
-6) Change directory to location of the Dockerfile and run: `docker build -t url-shortener-ui:{{insert_version}}
+6) Change directory to location of the Dockerfile (`cd ~/Github/tpximpact-challenge-ui`)and run: `docker build --no-cache -t url-shortener-ui:{{insert_version}} .`
    This will build the image locally using the layers specified in your dockerfile. (e.g. layers for file changes, layers for artifact placement in folder structure)
 
 ## Running the Dockerfile
-7) docker run -p 80:80 --name=url-shortener-ui-v{{insert_version}} url-shortener:{{insert_version}}
-   This will run the container on port 80 (default http port) named url-shortener-ui
+7) `docker run -p 4200:80 --name=url-shortener-ui-v{{insert_version}} url-shortener-ui:{{insert_version}}`
+   This will run the container on port 4200 as this is what the cross origin is currently set to
+   Its named `url-shortener-ui:{{insert_version}}`

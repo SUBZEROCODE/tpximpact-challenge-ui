@@ -8,6 +8,10 @@ on:
     branches:
       - 'FT-*'
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   extract-commit-message:
     runs-on: ubuntu-latest
@@ -26,7 +30,12 @@ jobs:
           fi
 
   branch-cicd-pipeline:
+    needs: extract-commit-message
+    if: needs.extract-commit-message.outputs.matched == 'true'
     runs-on: ubuntu-latest
+
+    outputs:
+      branch_name: ${{ steps.set_branch.outputs.branch_name }}
 
     strategy:
       matrix:
@@ -53,3 +62,14 @@ jobs:
     - name: 🏗️ Build frontend
       run: npm run build -- --configuration=production
 
+    - name: Get sanitised branch name
+      id: set_branch
+      run: |
+        echo "branch_name=${GITHUB_REF#refs/heads/}">> $GITHUB_OUTPUT
+
+  deploy-ui:
+    needs: branch-cicd-pipeline
+    uses: ./.github/workflows/deploy-ui-as-container.yml
+    with:
+      image_name: url-shortener-ui
+      image_tag: "${{ needs.branch-cicd-pipeline.outputs.branch_name }}-testing"

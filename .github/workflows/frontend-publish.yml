@@ -4,6 +4,10 @@ on:
   release:
     types: [published]
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -13,22 +17,29 @@ jobs:
         node-version: [22.21.0]
 
     steps:
-    - name: ⬇️ Checkout code
+    - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: 🟢 Setup Node.js
+    - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: 📦 Install frontend dependencies
+    - name: Install frontend dependencies
       run: npm ci
 
-    - name: 🧪 Run frontend tests
+    - name: Run frontend tests
       run: npm run test -- --watch=false --browsers=ChromeHeadless
 
-    - name: 🧹 Lint frontend
+    - name: Lint frontend
       run: npm run lint
 
-    - name: 🏗️ Build frontend
+    - name: Build frontend
       run: npm run build -- --configuration=production
+
+  deploy-ui:
+    needs: branch-cicd-pipeline
+    uses: ./.github/workflows/deploy-ui-as-container.yml
+    with:
+      image_name: url-shortener-ui
+      image_tag: "release-0.0.2"
