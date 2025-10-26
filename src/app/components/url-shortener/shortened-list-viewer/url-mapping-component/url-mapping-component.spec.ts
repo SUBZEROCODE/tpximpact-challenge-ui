@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UrlMappingComponent } from './url-mapping-component';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('UrlMappingComponent', () => {
   let component: UrlMappingComponent;
@@ -8,7 +9,8 @@ describe('UrlMappingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UrlMappingComponent]
+      imports: [UrlMappingComponent],
+      providers: [provideHttpClient()]
     })
     .compileComponents();
 

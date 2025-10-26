@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ShortenedListViewerComponent } from './shortened-list-viewer';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('ShortenedListViewer', () => {
   let component: ShortenedListViewerComponent;
@@ -8,7 +9,8 @@ describe('ShortenedListViewer', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ShortenedListViewerComponent]
+      imports: [ShortenedListViewerComponent],
+      providers: [provideHttpClient()],
     })
     .compileComponents();
 
