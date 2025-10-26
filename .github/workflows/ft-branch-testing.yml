@@ -7,6 +7,10 @@ on:
   push:
     branches:
       - 'FT-*'
+      
+permissions:
+  contents: read
+  packages: write
 
 jobs:
   extract-commit-message:
