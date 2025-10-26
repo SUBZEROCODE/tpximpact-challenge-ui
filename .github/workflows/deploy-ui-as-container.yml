@@ -21,7 +21,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Get sanitised branch name
         run: echo "SANITISED_BRANCH_NAME=$(echo ${{inputs.image_tag}} | tr '/' '-' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
@@ -37,5 +36,5 @@ jobs:
 
       - name: Build and Push Docker image
         run: |
-          docker build -t ghcr.io/${{ env.SANITISED_OWNER_NAME }}/${{ inputs.image_name }}:${{ env.SANITISED_BRANCH_NAME }} . \
+          docker build --no-cache -t ghcr.io/${{ env.SANITISED_OWNER_NAME }}/${{ inputs.image_name }}:${{ env.SANITISED_BRANCH_NAME }} . \
           && docker push ghcr.io/${{ env.SANITISED_OWNER_NAME }}/${{ inputs.image_name }}:${{ env.SANITISED_BRANCH_NAME }}

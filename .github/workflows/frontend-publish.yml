@@ -38,6 +38,7 @@ jobs:
       run: npm run build -- --configuration=production
 
   deploy-ui:
+    needs: branch-cicd-pipeline
     uses: ./.github/workflows/deploy-ui-as-container.yml
     with:
       image_name: url-shortener-ui
