@@ -54,7 +54,7 @@ jobs:
       run: npm run build -- --configuration=production
 
   deploy-ui:
-    uses: ./.github/workflows/deploy-ui-as-container
+    uses: ./.github/workflows/deploy-ui-as-container.yml
     with:
       image_name: url-shortener-ui
       image_tag: "{{ env.SANITISED_BRANCH_NAME }}-testing"
