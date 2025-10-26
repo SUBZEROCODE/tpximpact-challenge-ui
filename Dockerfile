@@ -22,7 +22,7 @@ RUN rm -rf /usr/share/nginx/html/*
 COPY --chown=nginx:nginx --chmod=644 nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copy built Angular app from builder stage
-COPY --from=builder --chown=nginx:nginx --chmod=755 /app/dist/url-shortener-ui /usr/share/nginx/html
+COPY --from=builder --chown=nginx:nginx --chmod=755 /app/dist/url-shortener-ui/browser /usr/share/nginx/html
 
 # Expose port
 EXPOSE 80
