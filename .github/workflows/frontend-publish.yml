@@ -33,14 +33,8 @@ jobs:
     - name: Build frontend
       run: npm run build -- --configuration=production
 
-    - name: Login to Github Container Registry
-      uses: docker/login-action@v3
-      with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Build then Push Docker image
-    run: |
-      docker build -t ghcr.io/${{ github.repository_owner }}/url-shortener-ui:release-0.0.2 .
-      && docker push ghcr.io/${{ github.repository_owner }}/url-shortener-ui:release-0.0.2
+  deploy-ui:
+    uses: ./.github/workflows/deploy-ui-as-container
+    with:
+      image_name: url-shortener-ui
+      image_tag: "release-0.0.2"
