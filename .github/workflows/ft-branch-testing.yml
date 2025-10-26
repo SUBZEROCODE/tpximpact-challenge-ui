@@ -58,7 +58,7 @@ jobs:
       run: npm run build -- --configuration=production
 
     - name: Get sanitised branch name
-      run: echo "BRANCH_NAME=$(echo ${{GITHUB_REF#refs/heads/}}')" >> $GITHUB_ENV
+      run: echo "BRANCH_NAME=$(GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
 
   deploy-ui:
     uses: ./.github/workflows/deploy-ui-as-container.yml
