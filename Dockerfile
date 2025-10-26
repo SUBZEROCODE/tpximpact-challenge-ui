@@ -18,6 +18,9 @@ FROM nginx:stable-alpine
 # Remove default Nginx static assets
 RUN rm -rf /usr/share/nginx/html/*
 
+# Copy nginx configuration into default
+COPY --chown=nginx:nginx --chmod=644 nginx.conf /etc/nginx/conf.d/default.conf
+
 # Copy built Angular app from builder stage
 COPY --from=builder /app/dist/url-shortener-ui /usr/share/nginx/html
 
