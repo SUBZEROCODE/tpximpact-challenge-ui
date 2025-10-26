@@ -1,0 +1,28 @@
+<h2>Provide a new url to shorten here</h2>
+
+<div class="table-responsive mt-4">
+    <table class="table table-bordered table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th scope="col" class="col-md-5">Choose your alias</th>
+          <th scope="col" class="col-md-6">Full URL</th>
+          <th scope="col" class="text-center col-md-1">Add</th>
+        </tr>
+      </thead>
+        <tr>
+            <td class="col-md-5">
+                <input [(ngModel)]="aliasGiven" type="text" class="form-control" placeholder="Enter alias" />
+            </td>
+
+            <td>
+                <input [(ngModel)]="fullUrlGiven" type="url" class="form-control" placeholder="Enter full URL to redirect to" />
+            </td>
+            <td class="text-center">
+                <button class="btn btn-sm btn-success" (click)="addNewUrlMapping()">
+                    +
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>
+
