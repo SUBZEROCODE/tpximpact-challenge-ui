@@ -61,11 +61,13 @@ jobs:
       run: npm run build -- --configuration=production
 
     - name: Get sanitised branch name
-      run: echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+      id: set_branch
+      run: |
+        BRANCH_NAME="${GITHUB_REF#refs/heads/}"
 
   deploy-ui:
     needs: branch-cicd-pipeline
     uses: ./.github/workflows/deploy-ui-as-container.yml
     with:
       image_name: url-shortener-ui
-      image_tag: "${env.BRANCH_NAME}-testing"
+      image_tag: "${{ needs.branch-cicd-pipeline.outputs.BRANCH_NAME }}-testing"
