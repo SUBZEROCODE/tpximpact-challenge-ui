@@ -24,8 +24,8 @@ export class UrlShortenerService {
     return this.http.get<UrlMapping[]>(`${this.baseUrl}/urls`);
   }
 
-  saveAliasedShortenedUrlMapping(fullUrl: string, customAlias: string): Observable<string> {
-    return this.http.post(`${this.baseUrl}/shorten`, {fullUrl, customAlias}, { responseType: 'text' as const });
+  saveAliasedShortenedUrlMapping(customAlias: string, fullUrl: string): Observable<string> {
+    return this.http.post(`${this.baseUrl}/shorten`, {customAlias, fullUrl}, { headers: { 'Content-Type': 'application/json' }, responseType: 'text' as const });
   }
 
   deleteShortenedUrlMapping(customAlias: string): Observable<HttpResponse<string>> {
