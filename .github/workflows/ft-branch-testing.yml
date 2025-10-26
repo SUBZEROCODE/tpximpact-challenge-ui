@@ -65,7 +65,7 @@ jobs:
     - name: Get sanitised branch name
       id: set_branch
       run: |
-        branch_name="${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
+        echo "branch_name=${GITHUB_REF#refs/heads/}">> $GITHUB_OUTPUT
 
   deploy-ui:
     needs: branch-cicd-pipeline
