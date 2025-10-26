@@ -58,7 +58,7 @@ jobs:
       run: npm run build -- --configuration=production
 
     - name: Get branch name
-      run: echo "BRANCH_NAME=$(GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+      run: echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
 
     - name: Check branch name
       run: echo "${BRANCH_NAME}"
@@ -67,4 +67,4 @@ jobs:
     uses: ./.github/workflows/deploy-ui-as-container.yml
     with:
       image_name: url-shortener-ui
-      image_tag: "FT-002-containerised-app-artifacts-testing"
+      image_tag: "${env.BRANCH_NAME}-testing"
