@@ -1,0 +1,46 @@
+name: Angular UI publish of Url Shortener 
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [22.21.0]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install frontend dependencies
+      run: npm ci
+
+    - name: Run frontend tests
+      run: npm run test -- --watch=false --browsers=ChromeHeadless
+
+    - name: Lint frontend
+      run: npm run lint
+
+    - name: Build frontend
+      run: npm run build -- --configuration=production
+
+    - name: Login to Github Container Registry
+      uses: docker/login-action@v3
+      with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build then Push Docker image
+    run: |
+      docker build -t ghcr.io/${{ github.repository_owner }}/url-shortener-ui:release-0.0.2 .
+      && docker push ghcr.io/${{ github.repository_owner }}/url-shortener-ui:release-0.0.2
