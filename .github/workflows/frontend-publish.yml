@@ -9,7 +9,7 @@ permissions:
   packages: write
 
 jobs:
-  build-and-test:
+  branch-cicd-pipeline:
     runs-on: ubuntu-latest
 
     strategy:
