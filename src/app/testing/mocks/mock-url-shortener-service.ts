@@ -7,4 +7,16 @@ export class MockUrlShortenerService {
   getUrlRedirectForAlias() {
     return of('test');
   }
+  
+  getAllAliasedShortenedUrls() {
+    let mockMappings = [
+      { customAlias: 'my-custom-alias', fullUrl: 'https://example.com' },
+      { customAlias: 'another-custom-alias', fullUrl: 'https://angular.io' }
+    ];
+    return of(mockMappings);
+  }
+
+  saveAliasedShortenedUrlMapping() {
+    return of("URL successfully shortened");
+  }
 }

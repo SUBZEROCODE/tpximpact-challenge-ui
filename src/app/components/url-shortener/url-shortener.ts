@@ -41,13 +41,6 @@ export class UrlShortenerComponent implements OnInit, OnChanges {
       //       // this.testAliasResponse = fullUrlToRedirectTo;
       // });
 
-      const urlMappingTest: UrlMapping = {
-          alias: "my-custom-alias",
-          fullUrl: "https://example.com/very/long/url/",
-          shortUrl: "http://localhost:8080/my-custom-alias"
-      };
-
-      this.saveAliasesShortenedUrlMapping(urlMappingTest.fullUrl, urlMappingTest.alias);
       //console.log(resultFromSavingMapping);
   // });
   }
@@ -61,6 +54,14 @@ export class UrlShortenerComponent implements OnInit, OnChanges {
         next: (healthStatus: string) => {
           this.apiHealth = healthStatus;
           this.handleSuccess("API is now connected");
+
+          const urlMappingTest: UrlMapping = {
+          alias: "my-custom-alias",
+          fullUrl: "https://example.com/very/long/url/",
+          shortUrl: "http://localhost:8080/my-custom-alias"
+        };
+
+        this.saveAliasesShortenedUrlMapping(urlMappingTest.fullUrl, urlMappingTest.alias);
         },
         error: (errorResponse: HttpErrorResponse) => {
           this.errorToHandle = errorResponse;

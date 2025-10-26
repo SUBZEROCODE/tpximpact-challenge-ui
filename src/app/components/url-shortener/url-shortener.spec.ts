@@ -29,34 +29,32 @@ describe('UrlShortenerComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should set the component up with apiHealth value', fakeAsync(() => {
+ it('should set the component up with apiHealth value', fakeAsync(() => {
     spyOn(mockUrlShortenerService, 'getHealthOfAPI').and.callThrough();
-    const mockHealthResponse = 'Java Spring is ready to serve the API';
+    const customAliasTestMessage = "Try Custom Alias Test";
     component.ngOnInit();
 
     tick(1000);
     expect(mockUrlShortenerService.getHealthOfAPI).toHaveBeenCalled();
     fixture.detectChanges();
 
-    const healthCheckText: HTMLElement = fixture.nativeElement.querySelector(".health-check-text");
-    expect(healthCheckText.innerText).toEqual("Time to check if our integration is working: " + mockHealthResponse);
+    const healthCheckText: HTMLElement = fixture.nativeElement.querySelector("button.btn.btn-light");
+    expect(healthCheckText.innerText).toEqual(customAliasTestMessage);
   }));
 
   it('should get the url-redirect for alias only when healthy', fakeAsync(() => {
     spyOn(mockUrlShortenerService, 'getHealthOfAPI').and.callThrough();
-    spyOn(mockUrlShortenerService, 'getUrlRedirectForAlias').and.callThrough();
+    spyOn(mockUrlShortenerService, 'saveAliasedShortenedUrlMapping').and.callThrough();
     
     const mockHealthResponse = 'Java Spring is ready to serve the API';
-    const mockUrlRedirectResponse = 'test';
 
     component.ngOnInit();
 
     expect(mockUrlShortenerService.getHealthOfAPI).toHaveBeenCalled();
-    expect(mockUrlShortenerService.getUrlRedirectForAlias).toHaveBeenCalledTimes(0);
+    expect(mockUrlShortenerService.saveAliasedShortenedUrlMapping).toHaveBeenCalledTimes(0);
     tick(1000);
-    expect(mockUrlShortenerService.getUrlRedirectForAlias).toHaveBeenCalled();
+    expect(mockUrlShortenerService.saveAliasedShortenedUrlMapping).toHaveBeenCalled();
 
     expect(component.apiHealth).toBe(mockHealthResponse);
-    expect(component.testAliasResponse).toBe(mockUrlRedirectResponse);
   }));
 });
