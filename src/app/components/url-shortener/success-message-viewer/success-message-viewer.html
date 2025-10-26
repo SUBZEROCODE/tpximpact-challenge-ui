@@ -1,0 +1,8 @@
+
+@if (hasSuccessMessage) {
+  <div class="toast-success" role="status">
+    <span class="toast-icon">✅</span>
+    <span class="toast-message">{{ successMessage }}</span>
+    <button class="toast-close" (click)="closeSuccessMessage()">×</button>
+  </div>
+}

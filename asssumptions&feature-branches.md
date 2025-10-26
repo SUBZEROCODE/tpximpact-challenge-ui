@@ -1,9 +1,23 @@
 # Assumptions made for this coding challenge.
+
+- If a user tries to send an "alias" to the api on route "/api/v1/url-shortener/{alias}" which is not there I will do nothing but return back Alias not found.
+=> Its assumed a user will always add the alias before wanting to get that redirect.
+
+- Its assumed that every record of alias, full-url and short-url will be complete.
+=> Therefore if we get a record matching a given alias a full-url and short-url will be gettable for that record.
+
+- Its assumed that the shortUrl generated will always be "http://localhost:8080/{{alias}}, the fullUrl can be any url to redirect to.
+=> Therefore its always within the scope of the backend on port 8080.
+
+- Assuming that the fact "full-url" has https means that this can be any outside url including those implementing https.
+
+- Assuming delete will only ever return a 204 if successfull, and therefore only catching this with conditional if in Angular is suitable.
+
 I'm going to treat the feature expectations and requirements as their own iterations by feature branch with the following identifiers for ease of use and clarification.
 Usually I'd expect my feature requirements and expectations for a given sprint to come from a project management tool such as JIRA, and this document is intended to mimic this issue ticket style.
 
 ## Issue Tracker of Feature branches:
-The numbering is slightly arbitrary it just depends on what issues had come before, I've selected 001 onwards for documentation and additional (docker requirements),100 for frontend and 200 for backend.
+The numbering is slightly arbitrary it just depends on what issues had come before, I've selected 001 onwards for documentation and additional (docker requirements),100 for backend and 200 for frontend.
 
 ### FT-100-java-spring-initial-setup - merged 🚀
 As a java developer I want to have a basic program written in Java Spring and tested with JUnit for MVC usage, compiled and ready for coming iterations.
@@ -14,7 +28,7 @@ As a java developer I want to create boilerplated code to mimic the sorts of log
 This will enable future iterations to use this logic and provides a good template for another developer to work on.
 Acceptance criteria: Boilerplated code with logic for Controller methods matching their openapi specifications, parameter testing is required for basic openapi related specifications but not the inner service logic (e.g. The method returns 200 and "OK").
 
-### BUG-100-api-context-path-fix
+### BUG-100-api-context-path-fix 
 As a java tester I want to be able to avoid needing to provide the full URL path, this should be inherited by the test classes from application.properties/application-test.properties file.
 Acceptance criteria: The context should be passed correctly with "server.servlet.context-path" for controllers and their tests.
 e.g. `mockMvc.perform(get("/health")` should work and not require additional "/api/v1/url-shortener/" path to be added in to the mockmvc test.
@@ -28,7 +42,7 @@ Acceptance criteria: Angular serves html content to the localhost domain and bas
 As a developer of the url-shortener site I want to be able to see the outputs coming from the backend UI.
 Acceptance criteria: Designed and implemented an angular service to prove that backend interactions are being sent back to UI as expected (output changes may be required in backend).
 
-### BUG-100-spring-ldap-security-breaking-tests
+### BUG-101-spring-ldap-security-breaking-tests
 As a tester I want to be able to run my controller tests (`@webmvctest`) without needing to deal with issues related to CORS.
 Currently these controller tests are having to exclude "SecurityAutoConfiguration.class" from building its custom Beans which are conflicting with tests and expecting authorised logins etc.
 Acceptance criteria: Tests pass without the need to exclude SecurityAutoConfiguration.class, it may be the case this is already suitable so further investigation is required.
@@ -41,10 +55,39 @@ Acceptance criteria: readme files are created detailing approach for building an
 As a developer I want to be able to lint my code when a release is made.
 Acceptance criteria: Github action passes the lint stage as its installed and ready added to the frontend.
 
-### Release-basic-angular-and-api-integration
+### Release-basic-angular-and-api-integration - released as 0.0.1 🚀
 Note: I also developed a simple Github Actions pipeline when looking into why eslint was not working.
 
 As a developer I want to have a branch which will contain release staged code.
 Acceptance criteria: Github action of CI/CD passing for this Release branch when merged into dev.
 This release should be a basic implementation of frontend and backend and is to prove that the Release functionality is working as intended 
 e.g. lint, build, test and then build of artifacts end to end.
+Note: This will be release 0.0.1
+
+### FT-103-checkstyle-fix-lints-checkstyle-9.3-ruleset
+As a developer I want to have a clean run of CI/CD for lints.
+Currently using `mvn checkstyle:check`, which does not break build if Checkstyle is not satisfied, this will need updating eventually.
+Acceptance criteria: Checkstyle passes with very minimal errors for Checkstyle 9.3
+Priority: lower priority over the functionality of the task.
+
+### Release-persisted-url-shortener-records
+As a developer I want to have a persisted store to save records into, this will also encompass changes required to bring in:
+Repositories, Services and DataSource to set up the db and provide required methods to interact using SQL.
+Acceptance criteria: Release provides functionality to persist data across restarts, this is visualised on the UI as a list of those persisted data and updates on changes.
+Note: This will be release 0.0.2
+
+### FT-104-alias-with-url-mapping-repository - merged 🚀
+As a java developer I want to have a JPA respository to save my objects into, ready for integration into a persistant store.
+Acceptance criteria: working repository with basic tests with JPA with basic accessor methods added.
+
+### FT-105-backend-changes-implementing-api
+As a java developer I want to have full implementations completed for all endpoints in the openapi spec ready for frontend visualisations.
+Acceptance criteria: All endpoints within openapi.yml are successfully implemented.
+
+### FT-202-frontend-ui-visualisations-for-api
+As an angular developer I want to provide a simple UI for visualising outputs from backend endpoints within the openapi spec.
+Acceptance criteria: Services set up for endpoints which have been implemented with simple UI view to complement the returns of data.
+
+### FT-104-backend-api-changes-to-match-frontend-expectations
+As a java developer I want to provide my controller endpoints in a way which suits the frontend UI implementation.
+Acceptance criteria: FT-202-frontend-ui-visualisations-for-api works alongside backend endpoints with returns being given as expected.
