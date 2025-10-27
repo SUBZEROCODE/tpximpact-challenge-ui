@@ -31,7 +31,6 @@ export class ErrorMessageViewerComponent implements OnChanges {
     }
 
     // Auto-dismiss after 5 seconds
-    // eslint-disable-next-line no-undef
     setTimeout(() => this.closeErrorMessage(), 10000);
   }
 

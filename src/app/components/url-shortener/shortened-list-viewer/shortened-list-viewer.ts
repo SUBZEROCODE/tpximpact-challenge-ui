@@ -5,6 +5,7 @@ import { UrlShortenerService } from '../../../services/url-shortener-service';
 import { subscribeToObservableAndUseErrorMessageHandling } from '../../../helpers/observable-interactions-helper';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { UrlMappingComponent } from "./url-mapping-component/url-mapping-component";
+import { UrlMappingEventsService } from '../../../services/url-mapping-events-service';
 
 @Component({
   selector: 'app-shortened-list-viewer',
@@ -14,6 +15,7 @@ import { UrlMappingComponent } from "./url-mapping-component/url-mapping-compone
 })
 export class ShortenedListViewerComponent {
   private urlShortener = inject(UrlShortenerService);
+  private urlEventsMappingService = inject(UrlMappingEventsService);
   @Input() urlMappingsReturnedFromApi: UrlMapping[] = [];
   @Output() successMessage = new EventEmitter<string>();
   @Output() errorToHandle = new EventEmitter<HttpErrorResponse>();
@@ -33,6 +35,9 @@ export class ShortenedListViewerComponent {
             this.successMessage.emit('Successfully deleted');
           }
         },
+        error: (errorResponse: HttpErrorResponse) => {
+          this.urlEventsMappingService.emitError(errorResponse);
+        }
     });
   }
 }
