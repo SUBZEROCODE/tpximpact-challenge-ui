@@ -28,7 +28,8 @@ export default [
         window: true,
         alert: true,
         setTimeout: true,
-
+        jasmine: true,
+        fail: true
       }
     },
     plugins: {
