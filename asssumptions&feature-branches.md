@@ -97,5 +97,5 @@ As a developer of the app I want to containerise my application code, so that it
 Acceptance criteria: Dockerfiles created to build code for frontend and backend and if possible integrate this with CICD to build docker images to registry.
 
 ### FT-003-code-coverage-testing-improvements
-As a tester of the app I want to have code coverage up to reasonable levels.
+As a tester of the app I want to have code coverage up to reasonable levels for both frontend and backend.
 Acceptance criteria: Sensible code coverage percentage achieved with functionality tested where suitable.
