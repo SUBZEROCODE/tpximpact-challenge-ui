@@ -35,7 +35,6 @@ describe('UrlMappingComponent', () => {
   });
 
   it('should alert if alias or full URL is missing', () => {
-    // eslint-disable-next-line no-undef
     const windowSpy = spyOn(window, 'alert');
     component.aliasGiven = '';
     component.fullUrlGiven = '';

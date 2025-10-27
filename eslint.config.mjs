@@ -25,6 +25,10 @@ export default [
         spyOn: true,
         afterEach: true,
         fdescribe: true,
+        window: true,
+        alert: true,
+        setTimeout: true,
+
       }
     },
     plugins: {

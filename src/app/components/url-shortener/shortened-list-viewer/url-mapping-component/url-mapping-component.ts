@@ -22,7 +22,6 @@ export class UrlMappingComponent {
 
   addNewUrlMapping(): void {
     if (!this.aliasGiven || !this.fullUrlGiven) {
-      // eslint-disable-next-line no-undef
       alert('Please enter both alias and full URL to save');
       return;
     }
