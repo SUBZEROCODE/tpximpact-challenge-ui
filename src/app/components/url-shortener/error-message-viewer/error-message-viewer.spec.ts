@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ErrorMessageViewerComponent } from './error-message-viewer';
-import { HttpErrorResponse } from '@angular/common/http';
 
 describe('ErrorMessageViewer', () => {
   let component: ErrorMessageViewerComponent;
