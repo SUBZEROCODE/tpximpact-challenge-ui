@@ -3,8 +3,6 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 
 import { UrlShortenerService } from './url-shortener-service';
 import { provideHttpClient } from '@angular/common/http';
-import { of } from 'rxjs';
-import { InjectionToken } from '@angular/core';
 import { ExternalRedirectNavigationService } from './external-redirect-navigation-service';
 import { MockUrlShortenerService } from '../testing/mocks/mock-url-shortener-service';
 
@@ -97,8 +95,6 @@ describe('UrlShortenerService', () => {
       expect(response.status).toBe(204);
       expect(response.body).toBe(mockResponseText);
     });
-
-    const deleteAliasedShortenedUrlEndpoint = `http://localhost:8080/api/v1/url-shortener/`
 
     const req = httpMock.expectOne(expectedRedirectShortUrl);
     expect(req.request.method).toBe('DELETE');
