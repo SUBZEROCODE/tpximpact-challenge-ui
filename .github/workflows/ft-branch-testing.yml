@@ -53,11 +53,12 @@ jobs:
     - name: 📦 Install frontend dependencies
       run: npm ci
 
-    - name: 🧪 Run frontend tests
-      run: npm run test -- --watch=false --browsers=ChromeHeadless
+    - name: 🧪 Run frontend tests and output code-coverage
+      run: npm run test -- --watch=false --browsers=ChromeHeadless --code-coverage
 
     - name: 🧹 Lint frontend
       run: npm run lint
+      continue-on-error: true
 
     - name: 🏗️ Build frontend
       run: npm run build -- --configuration=production

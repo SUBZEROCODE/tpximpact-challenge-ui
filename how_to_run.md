@@ -21,6 +21,8 @@ Note: This can be fine tuned depending on which environment variables you need w
 ## Testing
 3) Run `npm test` to run the tests, note if interactions with UI are required then a browser such as chrome-headless/phantom will be required.
 
+3b) Checking code coverage can be done with `ng test --code-coverage`
+
 ## Building the artifacts
 4) Run `npm run build` or `ng build` which will transpile your typescript into javascript code.
 Output is created in /dist folder and is provided the code as a series of .js files. (These can later be added to a Dockerfile and served over a load-balancer such as nginx)

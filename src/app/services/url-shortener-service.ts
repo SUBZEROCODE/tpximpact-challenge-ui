@@ -2,18 +2,19 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UrlMapping } from '../models/url-mapping.model';
+import { ExternalRedirectNavigationService } from './external-redirect-navigation-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UrlShortenerService {
   private http = inject(HttpClient);
+  private externalRedirect = inject(ExternalRedirectNavigationService);
   private baseUrl = 'http://localhost:8080/api/v1/url-shortener';
 
   // Get url redirect For a given alias.
   getUrlRedirectForAlias(customAlias: string): void {
-    // eslint-disable-next-line no-undef
-    window.location.href= `http://localhost:8080/api/v1/url-shortener/${customAlias}`;
+    this.externalRedirect.manageWindowRedirect(`http://localhost:8080/api/v1/url-shortener/${customAlias}`);
   }
 
   getHealthOfAPI(): Observable<string> {

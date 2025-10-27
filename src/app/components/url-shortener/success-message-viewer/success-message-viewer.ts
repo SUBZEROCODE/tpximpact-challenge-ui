@@ -12,7 +12,6 @@ export class SuccessMessageViewerComponent implements OnChanges {
 
   ngOnChanges(): void {
     if (this.hasSuccessMessage) {
-      // eslint-disable-next-line no-undef
       setTimeout(() => this.closeSuccessMessage(), 5000);
     }
   }

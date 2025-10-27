@@ -7,3 +7,4 @@ node_modules/
 # Angular build temporary files
 dist/
 .angular/
+coverage/
