@@ -5,17 +5,18 @@ import { provideHttpClient } from '@angular/common/http';
 import { MockUrlShortenerService } from '../../../../testing/mocks/mock-url-shortener-service';
 import { UrlShortenerService } from '../../../../services/url-shortener-service';
 import { UrlMappingEventsService } from '../../../../services/url-mapping-events-service';
-import { MockUrlMappingEventsService } from '../../../../testing/mocks/mock-url-mapping-event-service';
 
 describe('UrlMappingComponent', () => {
   let component: UrlMappingComponent;
   let fixture: ComponentFixture<UrlMappingComponent>;
   let mockUrlShortenerService: MockUrlShortenerService;
-  let mockUrlMappingEventsService: MockUrlMappingEventsService;
+  const mockUrlMappingEventsService = {
+    emitSuccess: jasmine.createSpy('emitSuccess'),
+    emitError: jasmine.createSpy('emitError')
+  };  
 
     beforeEach(async () => {
       mockUrlShortenerService = new MockUrlShortenerService();
-      mockUrlMappingEventsService = new MockUrlMappingEventsService();
       await TestBed.configureTestingModule({
         imports: [UrlMappingComponent],
         providers: [
