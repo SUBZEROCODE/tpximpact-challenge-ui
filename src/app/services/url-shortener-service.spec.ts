@@ -1,10 +1,11 @@
-import { TestBed } from '@angular/core/testing';;
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
+;
 
-import { UrlShortenerService } from './url-shortener-service';
 import { provideHttpClient } from '@angular/common/http';
-import { ExternalRedirectNavigationService } from './external-redirect-navigation-service';
 import { MockUrlShortenerService } from '../testing/mocks/mock-url-shortener-service';
+import { ExternalRedirectNavigationService } from './external-redirect-navigation-service';
+import { UrlShortenerService } from './url-shortener-service';
 
 
 describe('UrlShortenerService', () => {
@@ -72,7 +73,7 @@ describe('UrlShortenerService', () => {
     const fullUrl = 'https://example.com/some/long/url';
     const mockResponseText = 'URL successfully shortened';
 
-    testService.saveAliasedShortenedUrlMapping(alias, fullUrl).subscribe(returnedResponse => {
+    testService.saveAliasedShortenedUrlMapping(fullUrl, alias).subscribe(returnedResponse => {
       expect(returnedResponse).toBe(mockResponseText);
     });
 

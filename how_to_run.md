@@ -21,7 +21,7 @@ Note: This can be fine tuned depending on which environment variables you need w
 ## Testing
 3) Run `npm test` to run the tests, note if interactions with UI are required then a browser such as chrome-headless/phantom will be required.
 
-3b) Checking code coverage can be done with `ng test --code-coverage`
+3b) Checking code coverage can be done with `ng test --code-coverage`, this can be checked against `karma.conf.js` properties for code-coverage expectations.
 
 ## Building the artifacts
 4) Run `npm run build` or `ng build` which will transpile your typescript into javascript code.
