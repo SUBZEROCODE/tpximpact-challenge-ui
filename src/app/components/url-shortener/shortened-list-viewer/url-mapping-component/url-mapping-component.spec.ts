@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UrlMappingComponent } from './url-mapping-component';
 import { provideHttpClient } from '@angular/common/http';
-import { MockUrlShortenerService } from '../../../../testing/mocks/mock-url-shortener-service';
-import { UrlShortenerService } from '../../../../services/url-shortener-service';
 import { UrlMappingEventsService } from '../../../../services/url-mapping-events-service';
+import { UrlShortenerService } from '../../../../services/url-shortener-service';
+import { MockUrlShortenerService } from '../../../../testing/mocks/mock-url-shortener-service';
+import { UrlMappingComponent } from './url-mapping-component';
 
 describe('UrlMappingComponent', () => {
   let component: UrlMappingComponent;
@@ -37,11 +37,10 @@ describe('UrlMappingComponent', () => {
 
   it('should alert if alias or full URL is missing', () => {
     const windowSpy = spyOn(window, 'alert');
-    component.aliasGiven = '';
     component.fullUrlGiven = '';
     fixture.detectChanges();
     component.addNewUrlMapping();
-    expect(windowSpy).toHaveBeenCalledWith('Please enter both alias and full URL to save');
+    expect(windowSpy).toHaveBeenCalledWith('Please enter a full URL to save');
   });
 
   it('should emit success message on successful save', () => {

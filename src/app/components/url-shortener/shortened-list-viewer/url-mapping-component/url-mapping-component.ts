@@ -1,9 +1,10 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { UrlShortenerService } from '../../../../services/url-shortener-service';
-import { HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { subscribeToObservableAndUseErrorMessageHandling } from '../../../../helpers/observable-interactions-helper';
 import { UrlMappingEventsService } from '../../../../services/url-mapping-events-service';
+import { UrlShortenerService } from '../../../../services/url-shortener-service';
 
 @Component({
   selector: 'app-url-mapping-component',
@@ -19,19 +20,27 @@ export class UrlMappingComponent {
   fullUrlGiven: string = '';
   @Output() successMessage = new EventEmitter<string>();
   @Output() errorToHandle = new EventEmitter<HttpErrorResponse>();
+  shortenedUrlMappingObservable: Observable<string> = new Observable();
 
   addNewUrlMapping(): void {
-    if (!this.aliasGiven || !this.fullUrlGiven) {
-      alert('Please enter both alias and full URL to save');
+    if (!this.fullUrlGiven) {
+      alert('Please enter a full URL to save');
       return;
     }
 
-    const shortenedUrlMappingObservable = subscribeToObservableAndUseErrorMessageHandling(
-      this.urlShortener.saveAliasedShortenedUrlMapping(this.aliasGiven, this.fullUrlGiven),
-      err => this.errorToHandle.emit(err)
-    );
+    if(this.aliasGiven==''){
+      this.shortenedUrlMappingObservable = subscribeToObservableAndUseErrorMessageHandling(
+        this.urlShortener.saveAliasedShortenedUrlMapping(this.fullUrlGiven),
+        err => this.errorToHandle.emit(err)
+      )
+    } else {
+      this.shortenedUrlMappingObservable = subscribeToObservableAndUseErrorMessageHandling(
+        this.urlShortener.saveAliasedShortenedUrlMapping(this.fullUrlGiven, this.aliasGiven),
+        err => this.errorToHandle.emit(err)
+      )
+    }
 
-    shortenedUrlMappingObservable.subscribe({
+    this.shortenedUrlMappingObservable.subscribe({
         next: successResultMessage => {
           this.urlEventsMappingService.emitSuccess(successResultMessage)
         },
